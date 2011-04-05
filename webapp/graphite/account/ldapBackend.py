@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 
 class LDAPBackend:
   def authenticate(self,username=None,password=None):
+    ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
     try:
       conn = ldap.open(settings.LDAP_SERVER, port=settings.LDAP_PORT)
       conn.protocol_version = ldap.VERSION3
