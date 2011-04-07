@@ -315,7 +315,7 @@ class LineGraph(Graph):
                   'graphOnly','yMin','yMax','yLimit','yStep','areaMode', \
                   'areaAlpha','drawNullAsZero','tz', 'yAxisSide','pieMode', \
                   'yUnitSystem')
-  validLineModes = ('staircase','slope')
+  validLineModes = ('staircase','slope', 'connected')
   validAreaModes = ('none','first','all','stacked')
   validPieModes = ('maximum', 'minimum', 'average')
 
@@ -510,7 +510,8 @@ class LineGraph(Graph):
                 self.ctx.move_to(x,self.area['ymax'])
                 self.ctx.line_to(x,y)
               else:
-                self.ctx.move_to(x,y)
+                if self.lineMode != 'connected':
+                  self.ctx.move_to(x,y)
           else:
             if self.lineMode == 'staircase':
               self.ctx.line_to(x,y)
