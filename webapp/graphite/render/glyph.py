@@ -505,32 +505,18 @@ class LineGraph(Graph):
             x += series.xStep
             continue
 
-          if self.lineMode == 'staircase':
-            if fromNone:
-
+          if fromNone:
               if self.areaMode != 'none':
                 self.ctx.move_to(x,self.area['ymax'])
                 self.ctx.line_to(x,y)
               else:
                 self.ctx.move_to(x,y)
-
-            else:
+          else:
+            if self.lineMode == 'staircase':
               self.ctx.line_to(x,y)
 
-            x += series.xStep
-            self.ctx.line_to(x,y)
-
-          elif self.lineMode == 'slope':
-            if fromNone:
-
-              if self.areaMode != 'none':
-                self.ctx.move_to(x,self.area['ymax'])
-                self.ctx.line_to(x,y)
-              else:
-                self.ctx.move_to(x,y)
-
-            x += series.xStep
-            self.ctx.line_to(x,y)
+          x += series.xStep
+          self.ctx.line_to(x,y)
 
           fromNone = False
 
